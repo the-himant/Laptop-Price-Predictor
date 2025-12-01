@@ -77,14 +77,14 @@ The model is trained on real laptop specifications containing:
 
 | Feature          | Description                           |
 | ---------------- | ------------------------------------- |
-| Company          | Laptop brand (Dell, HP, Lenovo, etc.) |
-| Type             | Gaming / Ultrabook / Notebook         |
-| RAM              | Memory size                           |
+| Company          | Laptop brand                          |
+| TypeName         | Gaming / Ultrabook / Notebook .etc    |
+| Ram              | Memory size                           |
 | Weight           | Weight of laptop                      |
 | Cpu brand        | Processor type                        |
 | Gpu brand        | Graphics card                         |
 | HDD/SSD          | Storage configuration                 |
-| IPS, Touchscreen | Display features                      |
+| IPS, TouchScreen | Display features                      |
 | PPI              | Pixel density                         |
 | Price            | Target variable (logged)              |
 
@@ -119,16 +119,17 @@ y = np.log(df["Price"])
 ### 4️⃣ Pipeline
 
 ```python
-pipe = Pipeline([
-    ('preprocessing', ColumnTransformer(...)),
-    ('model', LinearRegression())
+l_model = LinearRegression()
+lr_pipe =Pipeline([
+            ('step_1',encoding),
+            ('step_2',l_model)
 ])
 ```
 
 ### 5️⃣ Streamlit Prediction
 
 ```python
-price = np.exp(pipe.predict(query)[0])
+predicted_price = np.exp(pipe.predict(query)).round(2)
 ```
 
 ---
@@ -156,7 +157,7 @@ pip install -r requirements.txt
 ### Run Streamlit app
 
 ```
-streamlit run app/app.py
+streamlit run frontend/app.py
 ```
 
 ---
